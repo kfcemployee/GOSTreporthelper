@@ -10,6 +10,20 @@ from docx.oxml import parse_xml, OxmlElement
 from docx.oxml.ns import qn
 from docx.text.paragraph import Paragraph
 
+def normalize_text(text: str) -> str:
+    if not text:
+        return text
+
+    text = re.sub(r'"([^"]*)"', r'«\1»', text)
+    text = re.sub(r'(\d+)-(\d+)', r'\1—\2', text)
+    text = re.sub(r'\s+', ' ', text)
+    text = re.sub(r'(\s)г\.(\s)', r'\1г.\2', text)
+    text = re.sub(r'(\s)см\.(\s)', r'\1см.\2', text)
+    text = re.sub(r'(\s)т\.\s*д\.(\s)', r'\1т.д.\2', text)
+    text = re.sub(r'(\s)т\.\s*п\.(\s)', r'\1т.п.\2', text)
+
+    return text.strip()
+
 class Converter:
     def __init__(self, doc: Document, data: list, output_path: str):
         # главные параметры: объект документа, данные парсинга и место для сохранения
@@ -136,6 +150,10 @@ class Converter:
 
                     for p in cell.paragraphs:
                         p.style = StyleNames.tb_item
+
+                        nt = normalize_text(p.text)
+                        if nt:
+                            p.text = nt
                         if ix == 0:
                             p.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
                             for r in p.runs:
@@ -197,6 +215,10 @@ class Converter:
             if dig.endswith('.'):
                 par.text = dig[:-1] + ' ' + text.capitalize()
 
+        nt = normalize_text(par.text)
+        if nt:
+            par.text = nt
+
     @staticmethod
     def format_bullet(par: Paragraph):
         p_elem = par._element
@@ -210,6 +232,10 @@ class Converter:
         par.style = StyleNames.list
         par.paragraph_format.first_line_indent = Cm(0)
         par.paragraph_format.left_indent = Cm(1.25)
+
+        nt = normalize_text(par.text)
+        if nt:
+            par.text = nt
 
         text = par.text.strip()
         if text and not text.startswith('− '):
@@ -247,10 +273,18 @@ class Converter:
         if not re.match(r'^[\dа-яa-z]+[).]\s+.+', par.text, re.IGNORECASE):
             self.format_bullet(par)
 
+        nt = normalize_text(par.text)
+        if nt:
+            par.text = nt
+
     @staticmethod
     def format_normal(par: Paragraph):
         par.style = StyleNames.normal
         par.paragraph_format.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
+
+        nt = normalize_text(par.text)
+        if nt:
+            par.text = nt
 
     def format_image(self, par: Paragraph):
         elem = par._element

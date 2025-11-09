@@ -1,7 +1,7 @@
 from parsers import DocParser, MdParser
 from converters import Converter, MarkdownConverter
 
-file_path = r"ny"
+file_path = r""
 
 if not file_path:
     try:
