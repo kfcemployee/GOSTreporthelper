@@ -1,8 +1,8 @@
 import argparse
 import sys
 import os
-from parsers import DocParser, MdParser
-from converters import Converter, MarkdownConverter
+from utils.parsers import DocParser, MdParser
+from utils.converters import Converter, MarkdownConverter
 from docx import Document
 
 def main():
