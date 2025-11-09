@@ -1,0 +1,36 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <list>
+          <option value="asyncpg" />
+          <option value="python-dotenv" />
+          <option value="aiogram" />
+          <option value="pip" />
+          <option value="attrs" />
+          <option value="idna" />
+          <option value="multidict" />
+          <option value="propcache" />
+          <option value="typing_extensions" />
+          <option value="pydantic" />
+          <option value="aiofiles" />
+          <option value="certifi" />
+          <option value="aiohttp" />
+          <option value="pydantic_core" />
+          <option value="yarl" />
+          <option value="aiosignal" />
+          <option value="frozenlist" />
+          <option value="aiohappyeyeballs" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="str.*" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
