@@ -7,7 +7,7 @@ from docx import Document
 
 def main():
     if len(sys.argv) == 1 or '--help' in sys.argv or '-h' in sys.argv:
-        print("Использование: python main.py <файл> [опции]\n")
+        print("Использование: python cli.py <файл> [опции]\n")
         print("Обязательные аргументы:")
         print("[файл]                Входной файл (.docx или .txt)\n")
         print("Опции:")
@@ -15,9 +15,9 @@ def main():
         print("-f, --force           Перезаписать существующий файл")
         print("-h, --help            Показать эту справку\n")
         print("Примеры:")
-        print("python main.py документ.docx")
-        print("python main.py текст.txt -o отчет.docx -v")
-        print("python main.py файл.docx -f")
+        print("python cli.py документ.docx")
+        print("python cli.py текст.txt -o отчет.docx -v")
+        print("python cli.py файл.docx -f")
         sys.exit(0)
 
     pr = argparse.ArgumentParser(
